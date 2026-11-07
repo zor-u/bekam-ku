@@ -15,11 +15,17 @@ export default function Register() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const handlePhoneChange = (text: string) => {
+    // Allow digits only
+    setPhone(text.replace(/[^0-9]/g, ""));
+  };
+
   const handleRegister = async () => {
-    if (!name || !email || !password) {
+    if (!name || !email || !phone || !password) {
       Alert.alert("Error", "Please fill in all fields");
       return;
     }
@@ -27,7 +33,7 @@ export default function Register() {
     setIsLoading(true);
     try {
       // TODO: Connect to your auth API
-      console.log("Register with:", { name, email, password });
+      console.log("Register with:", { name, email, phone, password });
       Alert.alert("Success", "Account created successfully");
     } catch {
       Alert.alert("Error", "Registration failed. Please try again.");
@@ -66,6 +72,19 @@ export default function Register() {
             onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
+            autoCorrect={false}
+          />
+
+          <Text style={styles.label}>Phone</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your phone number"
+            placeholderTextColor="#9CA3AF"
+            value={phone}
+            onChangeText={handlePhoneChange}
+            keyboardType="phone-pad"
+            inputMode="numeric"
+            maxLength={15}
             autoCorrect={false}
           />
 

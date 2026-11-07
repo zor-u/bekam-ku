@@ -1,15 +1,16 @@
+import { ApiError, login } from "@/services/auth";
+import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { login, ApiError } from "@/services/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -50,7 +51,14 @@ export default function Login() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome Back</Text>
+        <Image
+          source={require("@/assets/logo/Bekamku-512-nobg.png")}
+          style={styles.logo}
+          contentFit="contain"
+          accessible
+          accessibilityLabel="bekamKu logo"
+          accessibilityRole="image"
+        />
         <Text style={styles.subtitle}>Sign in to continue</Text>
 
         <View style={styles.form}>
@@ -121,6 +129,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#111827",
     textAlign: "center",
+    marginBottom: 8,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    alignSelf: "center",
     marginBottom: 8,
   },
   subtitle: {
